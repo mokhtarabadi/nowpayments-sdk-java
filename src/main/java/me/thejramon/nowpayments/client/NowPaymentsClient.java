@@ -2,28 +2,35 @@ package me.thejramon.nowpayments.client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
 import me.thejramon.nowpayments.model.*;
 import okhttp3.Response;
 import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
-import org.jetbrains.annotations.NotNull;
+import org.apache.commons.codec.digest.HmacAlgorithms;
+import org.apache.commons.codec.digest.HmacUtils;
+import org.jetbrains.annotations.Nullable;
+import org.json.JSONObject;
+import sun.security.krb5.internal.crypto.HmacSha1Aes256CksumType;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class NowPaymentsClient {
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     public static final String HEADER_X_API_KEY = "x-api-key";
-    private static String BASE_URL = "";
+    public static final String HEADER_IPN_SIGNATURE = "x-nowpayments-sig";
+    private final String baseUrl;
+    private final String ipnSecretKey;
     private final OkHttpClient httpClient;
     private final Gson gson;
 
-    public NowPaymentsClient(String apiKey, boolean sandbox, boolean debug) {
+    public NowPaymentsClient(String apiKey, String ipnSecretKey, boolean sandbox, boolean debug) {
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
         builder.addInterceptor(chain -> {
             Request request = chain.request();
@@ -43,14 +50,22 @@ public class NowPaymentsClient {
         this.gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().setLenient().create();
 
         if (sandbox) {
-            BASE_URL = "https://api-sandbox.nowpayments.io/v1";
+            this.baseUrl = "https://api-sandbox.nowpayments.io/v1";
         } else {
-            BASE_URL = "https://api.nowpayments.io/v1";
+            this.baseUrl = "https://api.nowpayments.io/v1";
         }
+
+        this.ipnSecretKey = ipnSecretKey;
+    }
+
+    public me.thejramon.nowpayments.model.Response status() throws IOException {
+        String url = baseUrl + "/status";
+        String response = this.get(url, Collections.emptyMap());
+        return this.gson.fromJson(response, me.thejramon.nowpayments.model.Response.class);
     }
 
     public AuthResponse auth(String email, String password) throws IOException {
-        String url = BASE_URL + "/auth";
+        String url = baseUrl + "/auth";
         Auth auth = new Auth(email, password);
         String json = this.gson.toJson(auth);
         String response = this.post(url, json);
@@ -58,27 +73,27 @@ public class NowPaymentsClient {
     }
 
     public Currencies getCurrencies() throws IOException {
-        String url = BASE_URL + "/currencies";
-        String response = this.get(url, Collections.<String, String>emptyMap());
+        String url = baseUrl + "/currencies";
+        String response = this.get(url, Collections.emptyMap());
         return this.gson.fromJson(response, Currencies.class);
     }
 
     public FullCurrencies getFullCurrencies() throws IOException {
-        String url = BASE_URL + "/full-currencies";
-        String response = this.get(url, Collections.<String, String>emptyMap());
+        String url = baseUrl + "/full-currencies";
+        String response = this.get(url, Collections.emptyMap());
         return this.gson.fromJson(response, FullCurrencies.class);
     }
 
     public Currencies getAvailableCheckedCurrencies() throws IOException {
-        String url = BASE_URL + "/merchant/coins";
-        String response = this.get(url, Collections.<String, String>emptyMap());
+        String url = baseUrl + "/merchant/coins";
+        String response = this.get(url, Collections.emptyMap());
         return this.gson.fromJson(response, Currencies.class);
     }
 
     public Estimate getEstimatedPrice(double amount, String currencyFrom, String currencyTo) throws IOException {
-        String url = BASE_URL + "/estimate";
+        String url = baseUrl + "/estimate";
 
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<>();
         params.put("amount", amount + "");
         params.put("currency_from", currencyFrom);
         params.put("currency_to", currencyTo);
@@ -87,30 +102,32 @@ public class NowPaymentsClient {
     }
 
     public PaymentStatusResponse createPayment(PaymentRequest paymentRequest) throws IOException {
-        String url = BASE_URL + "/payment";
+        String url = baseUrl + "/payment";
         String json = this.gson.toJson(paymentRequest);
         String response = this.post(url, json);
         return this.gson.fromJson(response, PaymentStatusResponse.class);
     }
 
     public PaymentStatusResponse createPaymentByInvoice(PaymentResponseByInvoice paymentResponseByInvoice) throws IOException {
-        String url = BASE_URL + "/invoice-payment";
+        String url = baseUrl + "/invoice-payment";
         String json = this.gson.toJson(paymentResponseByInvoice);
         String response = this.post(url, json);
         return this.gson.fromJson(response, PaymentStatusResponse.class);
     }
 
-    public PaymentStatusResponse getPaymentStatusResponse(long paymentId) throws IOException {
-        String url = BASE_URL + "/payment/" + paymentId;
-        String response = this.get(url, Collections.<String, String>emptyMap());
+    public PaymentStatusResponse getPaymentStatus(long paymentId) throws IOException {
+        String url = baseUrl + "/payment/" + paymentId;
+        String response = this.get(url, Collections.emptyMap());
         return this.gson.fromJson(response, PaymentStatusResponse.class);
     }
 
-    public MinimumPaymentAmount getMinimumPaymentAmount(String currencyFrom, String currencyTo) throws IOException {
-        String url = BASE_URL + "/min-amount";
-        Map<String, String> params = new HashMap<String, String>();
+    public MinimumPaymentAmount getMinimumPaymentAmount(String currencyFrom, @Nullable String currencyTo) throws IOException {
+        String url = baseUrl + "/min-amount";
+        Map<String, String> params = new HashMap<>();
         params.put("currency_from", currencyFrom);
-        params.put("currency_to", currencyTo);
+        if (Objects.nonNull(currencyTo)) {
+            params.put("currency_to", currencyTo);
+        }
         String response = this.get(url, params);
         return this.gson.fromJson(response, MinimumPaymentAmount.class);
     }
@@ -119,11 +136,32 @@ public class NowPaymentsClient {
         throw new RuntimeException("This method is not completed");
     }
 
+    public List<Payout> getPayoutStatus(long payoutId) throws IOException {
+        String url = baseUrl + "/payout/" + payoutId;
+        String response = this.get(url, Collections.emptyMap());
+        return this.gson.fromJson(response, new TypeToken<List<Payout>>() {
+        }.getType());
+    }
+
     public InvoiceResponse createInvoice(InvoiceRequest invoiceRequest) throws IOException {
-        String url = BASE_URL + "/invoice";
+        String url = baseUrl + "/invoice";
         String json = this.gson.toJson(invoiceRequest);
         String response = this.post(url, json);
         return this.gson.fromJson(response, InvoiceResponse.class);
+    }
+
+    public boolean checkIPNSignature(String payload, String signatureHeader) {
+        // first sorted the payload
+        JSONObject jsonObject = new JSONObject(payload);
+        JSONObject tempJsonObject = new JSONObject();
+        for (String key : jsonObject.keySet().stream().sorted().collect(Collectors.toList())) {
+            tempJsonObject.put(key, jsonObject.get(key));
+        }
+        String sortedPayload = tempJsonObject.toString();
+        String signature = new HmacUtils(HmacAlgorithms.HMAC_SHA_512, HEADER_IPN_SIGNATURE.getBytes(StandardCharsets.UTF_8)).hmacHex(sortedPayload);
+
+        // check the signature
+        return signature.equals(signatureHeader);
     }
 
     private String post(String url, String json) throws IOException {

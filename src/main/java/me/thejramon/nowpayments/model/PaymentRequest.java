@@ -33,4 +33,9 @@ public class PaymentRequest {
     @SerializedName("order_description")
     private String orderDescription;
 
+    @SerializedName("fixed_rate")
+    private boolean fixedRate;
+
+    @SerializedName("is_fee_paid_by_user")
+    private boolean isFeePaidByUser;
 }

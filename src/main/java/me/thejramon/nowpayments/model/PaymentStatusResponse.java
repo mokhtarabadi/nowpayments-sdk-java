@@ -20,6 +20,17 @@ public class PaymentStatusResponse extends Response {
     @SerializedName("pay_address")
     private String payAddress;
 
+    @SerializedName("payin_extra_id")
+    private String payInExtraId;
+
+    private String network;
+
+    @SerializedName("amount_received")
+    private double amountReceived;
+
+    @SerializedName("time_limit")
+    private String timeLimit;
+
     @SerializedName("price_amount")
     private double priceAmount;
 

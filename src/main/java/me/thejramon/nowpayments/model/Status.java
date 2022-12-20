@@ -1,5 +1,7 @@
 package me.thejramon.nowpayments.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public enum Status {
     /**
      * waiting - waiting for the customer to send the payment. The initial status of each payment.
@@ -12,14 +14,32 @@ public enum Status {
      * refunded - the funds were refunded back to the user.
      * expired - the user didn't send the funds to the specified address in the 24 hour time window.
      */
+
+    @SerializedName("waiting")
     WAITING("waiting"),
+
+    @SerializedName("confirming")
     CONFIRMING("confirming"),
+
+    @SerializedName("confirmed")
     CONFIRMED("confirmed"),
+
+    @SerializedName("sending")
     SENDING("sending"),
+
+    @SerializedName("partially_paid")
     PARTIALLY_PAID("partially_paid"),
+
+    @SerializedName("finished")
     FINISHED("finished"),
+
+    @SerializedName("failed")
     FAILED("failed"),
+
+    @SerializedName("refunded")
     REFUNDED("refunded"),
+
+    @SerializedName("expired")
     EXPIRE("expired");
 
     private final String value;
@@ -27,7 +47,6 @@ public enum Status {
     Status(String value) {
         this.value = value;
     }
-
 
     @Override
     public String toString() {

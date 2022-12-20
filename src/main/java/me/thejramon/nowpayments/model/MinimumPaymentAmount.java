@@ -1,53 +1,20 @@
 package me.thejramon.nowpayments.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class MinimumPaymentAmount {
-    @JsonProperty("currency_from")
+import com.google.gson.annotations.SerializedName;
+import lombok.Data;
+
+@Data
+public class MinimumPaymentAmount extends Response {
+    @SerializedName("currency_from")
     private String currencyFrom;
-    @JsonProperty("currency_to")
+
+    @SerializedName("currency_to")
     private String currencyTo;
-    @JsonProperty("min_amount")
+
+    @SerializedName("min_amount")
     private double minAmount;
-    @JsonProperty("fiat_equivalent")
+
+    @SerializedName("fiat_equivalent")
     private double fiatEquivalent;
-
-    public String getCurrencyFrom() {
-        return currencyFrom;
-    }
-
-    public MinimumPaymentAmount setCurrencyFrom(String currencyFrom) {
-        this.currencyFrom = currencyFrom;
-        return this;
-    }
-
-    public String getCurrencyTo() {
-        return currencyTo;
-    }
-
-    public MinimumPaymentAmount setCurrencyTo(String currencyTo) {
-        this.currencyTo = currencyTo;
-        return this;
-
-    }
-
-    public double getMinAmount() {
-        return minAmount;
-    }
-
-    public MinimumPaymentAmount setMinAmount(double minAmount) {
-        this.minAmount = minAmount;
-        return this;
-
-    }
-
-    public double getFiatEquivalent() {
-        return fiatEquivalent;
-    }
-
-    public MinimumPaymentAmount setFiatEquivalent(double fiatEquivalent) {
-        this.fiatEquivalent = fiatEquivalent;
-        return this;
-
-    }
 }

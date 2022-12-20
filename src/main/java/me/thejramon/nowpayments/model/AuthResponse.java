@@ -1,16 +1,10 @@
 package me.thejramon.nowpayments.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.NonNull;
 
-public class AuthResponse {
-    @JsonProperty(value = "token", required = true)
+@Data
+public class AuthResponse extends Response {
+    @NonNull
     private String token;
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 }

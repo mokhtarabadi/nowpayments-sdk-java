@@ -1,21 +1,15 @@
 package me.thejramon.nowpayments.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
-public class FullCurrencies {
+@Data
+public class FullCurrencies extends Response {
 
-    @JsonProperty("currencies")
     private List<Currency> currencies = new ArrayList<>();
 
-    public List<Currency> getCurrencies() {
-        return currencies;
-    }
-
-    public void setCurrencies(List<Currency> currencies) {
-        this.currencies = currencies;
-    }
 }

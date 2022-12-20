@@ -1,52 +1,18 @@
 package me.thejramon.nowpayments.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
+import lombok.Data;
 
-public class Estimate {
+@Data
+public class Estimate extends Response {
 
-    @JsonProperty("currency_from")
+    @SerializedName("currency_from")
     private String currencyFrom;
-    @JsonProperty("amount_from")
+    @SerializedName("amount_from")
     private double amountFrom;
-    @JsonProperty("currency_to")
+    @SerializedName("currency_to")
     private String currencyTo;
-    @JsonProperty("estimated_amount")
+    @SerializedName("estimated_amount")
     private double estimatedAmount;
 
-
-    public String getCurrencyFrom() {
-        return currencyFrom;
-    }
-
-    public Estimate setCurrencyFrom(String currencyFrom) {
-        this.currencyFrom = currencyFrom;
-        return this;
-    }
-
-    public double getAmountFrom() {
-        return amountFrom;
-    }
-
-    public Estimate setAmountFrom(double amountFrom) {
-        this.amountFrom = amountFrom;
-        return this;
-    }
-
-    public String getCurrencyTo() {
-        return currencyTo;
-    }
-
-    public Estimate setCurrencyTo(String currencyTo) {
-        this.currencyTo = currencyTo;
-        return this;
-    }
-
-    public double getEstimatedAmount() {
-        return estimatedAmount;
-    }
-
-    public Estimate setEstimatedAmount(double estimatedAmount) {
-        this.estimatedAmount = estimatedAmount;
-        return this;
-    }
 }

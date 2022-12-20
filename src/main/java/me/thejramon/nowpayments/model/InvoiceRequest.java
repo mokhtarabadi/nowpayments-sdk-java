@@ -1,7 +1,11 @@
 package me.thejramon.nowpayments.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.google.gson.annotations.SerializedName;
+import lombok.Data;
+import lombok.NonNull;
+
+@Data
 public class InvoiceRequest {
 
     /**
@@ -16,88 +20,27 @@ public class InvoiceRequest {
      */
 
     // required
-    @JsonProperty(value = "price_amount", required = true)
-    private double priceAmount;
+    @NonNull
+    @SerializedName(value = "price_amount")
+    private Double priceAmount;
     // required
-    @JsonProperty(value = "price_currency", required = true)
+    @NonNull
+    @SerializedName(value = "price_currency")
     private String priceCurrency;
-    @JsonProperty("order_id")
+
+    @SerializedName("order_id")
     private long orderId;
-    @JsonProperty("order_description")
+
+    @SerializedName("order_description")
     private String orderDescription;
-    @JsonProperty("ipn_callback_url")
+
+    @SerializedName("ipn_callback_url")
     private String ipnCallbackUrl;
-    @JsonProperty("success_url")
+
+    @SerializedName("success_url")
     private String successUrl;
-    @JsonProperty("cancel_url")
+
+    @SerializedName("cancel_url")
     private String cancelUrl;
 
-    public double getPriceAmount() {
-        return priceAmount;
-    }
-
-    public InvoiceRequest setPriceAmount(double priceAmount) {
-        this.priceAmount = priceAmount;
-        return this;
-    }
-
-    public String getPriceCurrency() {
-        return priceCurrency;
-    }
-
-    public InvoiceRequest setPriceCurrency(String priceCurrency) {
-        this.priceCurrency = priceCurrency;
-        return this;
-
-    }
-
-    public long getOrderId() {
-        return orderId;
-    }
-
-    public InvoiceRequest setOrderId(long orderId) {
-        this.orderId = orderId;
-        return this;
-
-    }
-
-    public String getOrderDescription() {
-        return orderDescription;
-    }
-
-    public InvoiceRequest setOrderDescription(String orderDescription) {
-        this.orderDescription = orderDescription;
-        return this;
-
-    }
-
-    public String getIpnCallbackUrl() {
-        return ipnCallbackUrl;
-    }
-
-    public InvoiceRequest setIpnCallbackUrl(String ipnCallbackUrl) {
-        this.ipnCallbackUrl = ipnCallbackUrl;
-        return this;
-
-    }
-
-    public String getSuccessUrl() {
-        return successUrl;
-    }
-
-    public InvoiceRequest setSuccessUrl(String successUrl) {
-        this.successUrl = successUrl;
-        return this;
-
-    }
-
-    public String getCancelUrl() {
-        return cancelUrl;
-    }
-
-    public InvoiceRequest setCancelUrl(String cancelUrl) {
-        this.cancelUrl = cancelUrl;
-        return this;
-
-    }
 }

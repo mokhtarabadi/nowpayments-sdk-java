@@ -2,6 +2,7 @@ package me.thejramon.nowpayments.client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +13,8 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import org.apache.commons.codec.digest.HmacAlgorithms;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.jetbrains.annotations.Nullable;
-import org.json.JSONObject;
-import sun.security.krb5.internal.crypto.HmacSha1Aes256CksumType;
+
+
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -152,16 +153,26 @@ public class NowPaymentsClient {
 
     public boolean checkIPNSignature(String payload, String signatureHeader) {
         // first sorted the payload
-        JSONObject jsonObject = new JSONObject(payload);
-        JSONObject tempJsonObject = new JSONObject();
+        JsonObject jsonObject = gson.fromJson(payload, JsonObject.class);
+        JsonObject tempJsonObject = new JsonObject();
         for (String key : jsonObject.keySet().stream().sorted().collect(Collectors.toList())) {
-            tempJsonObject.put(key, jsonObject.get(key));
+            tempJsonObject.add(key, jsonObject.get(key));
         }
+
         String sortedPayload = tempJsonObject.toString();
-        String signature = new HmacUtils(HmacAlgorithms.HMAC_SHA_512, HEADER_IPN_SIGNATURE.getBytes(StandardCharsets.UTF_8)).hmacHex(sortedPayload);
+        log.debug("sorted payload: {}", sortedPayload);
+
+        String signature = new HmacUtils(HmacAlgorithms.HMAC_SHA_512, ipnSecretKey.getBytes(StandardCharsets.UTF_8)).hmacHex(sortedPayload);
+        log.debug("calculated signature: {}", signature);
 
         // check the signature
-        return signature.equals(signatureHeader);
+        if (signature.equals(signatureHeader)) {
+            log.trace("two signatures match");
+            return true;
+        } else {
+            log.trace("signature mismatch: {}", signatureHeader);
+            return false;
+        }
     }
 
     private String post(String url, String json) throws IOException {

@@ -60,4 +60,11 @@ public class PaymentStatusResponse extends Response {
 
     @SerializedName("outcome_amount")
     private double outcomeAmount;
+
+    // optional
+    @SerializedName("order_id")
+    private String orderId;
+    // optional
+    @SerializedName("order_description")
+    private String orderDescription;
 }

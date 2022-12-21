@@ -5,7 +5,7 @@
 
     <groupId>me.thejramon</groupId>
     <artifactId>nowpayments</artifactId>
-    <version>1.0.0-RELEASE</version>
+    <version>1.0.5</version>
     <name>nowpayments</name>
 
     <properties>
@@ -34,7 +34,7 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4j.version}</version>
-            <scope>runtime</scope>
+            <optional>true</optional>
         </dependency>
 
         <dependency>

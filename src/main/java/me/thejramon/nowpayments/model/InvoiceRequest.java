@@ -29,7 +29,7 @@ public class InvoiceRequest {
     private String priceCurrency;
 
     @SerializedName("order_id")
-    private long orderId;
+    private String orderId;
 
     @SerializedName("order_description")
     private String orderDescription;

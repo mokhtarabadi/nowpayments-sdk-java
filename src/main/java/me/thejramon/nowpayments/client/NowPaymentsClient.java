@@ -151,7 +151,7 @@ public class NowPaymentsClient {
         return this.gson.fromJson(response, InvoiceResponse.class);
     }
 
-    public boolean checkIPNSignature(String payload, String signatureHeader) {
+    public IPNResponse checkIPNSignature(String payload, String signatureHeader) {
         // first sorted the payload
         JsonObject jsonObject = gson.fromJson(payload, JsonObject.class);
         JsonObject tempJsonObject = new JsonObject();
@@ -168,10 +168,13 @@ public class NowPaymentsClient {
         // check the signature
         if (signature.equals(signatureHeader)) {
             log.trace("two signatures match");
-            return true;
+            PaymentStatusResponse paymentStatusResponse = gson.fromJson(sortedPayload, PaymentStatusResponse.class);
+            IPNResponse ipnResponse = new IPNResponse(true);
+            ipnResponse.setPaymentStatusResponse(paymentStatusResponse);
+            return ipnResponse;
         } else {
             log.trace("signature mismatch: {}", signatureHeader);
-            return false;
+            return new IPNResponse(false);
         }
     }
 

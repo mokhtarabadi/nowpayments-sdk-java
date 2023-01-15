@@ -43,4 +43,12 @@ public class InvoiceRequest {
     @SerializedName("cancel_url")
     private String cancelUrl;
 
+    @SerializedName("partially_paid_url")
+    private String partiallyPaidUrl;
+
+    @SerializedName("fixed_rate")
+    private boolean fixedRate;
+
+    @SerializedName("is_fee_paid_by_user")
+    private boolean isFeePaidByUser;
 }

@@ -10,9 +10,6 @@ public class Payout{
 
 	private long id;
 
-	@SerializedName("createdAt")
-	private Date createdAt;
-
 	private double amount;
 
 	@SerializedName("extra_id")
@@ -33,6 +30,9 @@ public class Payout{
 	private String batchWithdrawalId;
 
 	private Status status;
+
+	@SerializedName("createdAt")
+	private Date createdAt;
 
 	@SerializedName("updatedAt")
 	private Date updatedAt;

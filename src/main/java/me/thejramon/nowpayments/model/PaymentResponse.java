@@ -11,10 +11,10 @@ import java.util.Date;
 public class PaymentResponse {
 
     @SerializedName("created_at")
-    private Date createdAt;
+    private Long createdAt;
 
     @SerializedName("updated_at")
-    private Date updatedAt;
+    private Long updatedAt;
 
     @SerializedName("purchase_id")
     private long purchaseId;
@@ -24,6 +24,9 @@ public class PaymentResponse {
 
     @SerializedName("payment_status")
     private Status status;
+
+    @SerializedName("payin_extra_id")
+    private String payInExtraId;
 
     @SerializedName("pay_address")
     private String payAddress;

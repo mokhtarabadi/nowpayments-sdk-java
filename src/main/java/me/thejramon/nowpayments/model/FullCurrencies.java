@@ -4,7 +4,6 @@ package me.thejramon.nowpayments.model;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 @Data

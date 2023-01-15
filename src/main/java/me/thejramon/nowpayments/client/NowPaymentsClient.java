@@ -102,11 +102,11 @@ public class NowPaymentsClient {
         return this.gson.fromJson(response, Estimate.class);
     }
 
-    public PaymentStatusResponse createPayment(PaymentRequest paymentRequest) throws IOException {
+    public PaymentResponse createPayment(PaymentRequest paymentRequest) throws IOException {
         String url = baseUrl + "/payment";
         String json = this.gson.toJson(paymentRequest);
         String response = this.post(url, json);
-        return this.gson.fromJson(response, PaymentStatusResponse.class);
+        return this.gson.fromJson(response, PaymentResponse.class);
     }
 
     public PaymentStatusResponse createPaymentByInvoice(PaymentResponseByInvoice paymentResponseByInvoice) throws IOException {

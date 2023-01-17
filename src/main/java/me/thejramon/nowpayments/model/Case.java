@@ -3,12 +3,6 @@ package me.thejramon.nowpayments.model;
 import com.google.gson.annotations.SerializedName;
 
 public enum Case {
-    /**
-     * success(default) - finished payment example.
-     * common - common payment
-     * failed - failed payment example.
-     * partially_paid - partially_paid payment example.
-     */
 
     @SerializedName("success")
     SUCCESS("success"),

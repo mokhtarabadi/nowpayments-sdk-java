@@ -8,10 +8,9 @@ import lombok.NonNull;
 @Data
 public class PaymentResponseByInvoice {
 
-    // required
     @NonNull
     private Long iid;
-    // required
+
     @NonNull
     @SerializedName("pay_currency")
     private String payCurrency;

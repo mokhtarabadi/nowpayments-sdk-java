@@ -15,7 +15,6 @@ import org.apache.commons.codec.digest.HmacUtils;
 import org.jetbrains.annotations.Nullable;
 
 
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -101,7 +100,6 @@ public class NowPaymentsClient {
         String response = this.get(url, params);
         return this.gson.fromJson(response, Estimate.class);
     }
-
     public PaymentResponse createPayment(PaymentRequest paymentRequest) throws IOException {
         String url = baseUrl + "/payment";
         String json = this.gson.toJson(paymentRequest);

@@ -15,6 +15,9 @@ public class InvoiceRequest {
     @SerializedName(value = "price_currency")
     private String priceCurrency;
 
+    @SerializedName("pay_currency")
+    private String payCurrency;
+
     @SerializedName("order_id")
     private String orderId;
 

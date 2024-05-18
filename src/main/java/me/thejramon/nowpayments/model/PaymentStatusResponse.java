@@ -1,7 +1,6 @@
 package me.thejramon.nowpayments.model;
 
-
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -11,60 +10,60 @@ import java.util.Date;
 @Data
 public class PaymentStatusResponse extends Response {
 
-    @SerializedName("payment_id")
+    @JsonProperty("payment_id")
     private long paymentId;
 
-    @SerializedName("payment_status")
+    @JsonProperty("payment_status")
     private Status paymentStatus;
 
-    @SerializedName("pay_address")
+    @JsonProperty("pay_address")
     private String payAddress;
 
-    @SerializedName("payin_extra_id")
+    @JsonProperty("payin_extra_id")
     private String payInExtraId;
 
     private String network;
 
-    @SerializedName("amount_received")
+    @JsonProperty("amount_received")
     private double amountReceived;
 
-    @SerializedName("time_limit")
+    @JsonProperty("time_limit")
     private String timeLimit;
 
-    @SerializedName("price_amount")
+    @JsonProperty("price_amount")
     private double priceAmount;
 
-    @SerializedName("price_currency")
+    @JsonProperty("price_currency")
     private String priceCurrency;
 
-    @SerializedName("pay_amount")
+    @JsonProperty("pay_amount")
     private double payAmount;
 
-    @SerializedName("actually_paid")
+    @JsonProperty("actually_paid")
     private double actuallyPaid;
 
-    @SerializedName("pay_currency")
+    @JsonProperty("pay_currency")
     private String payCurrency;
 
-    @SerializedName("created_at")
+    @JsonProperty("created_at")
     private Date createdAt;
 
-    @SerializedName("updated_at")
+    @JsonProperty("updated_at")
     private Date updatedAt;
 
-    @SerializedName("purchase_id")
+    @JsonProperty("purchase_id")
     private long purchaseId;
 
-    @SerializedName("outcome_currency")
+    @JsonProperty("outcome_currency")
     private String outcomeCurrency;
 
-    @SerializedName("outcome_amount")
+    @JsonProperty("outcome_amount")
     private double outcomeAmount;
 
     // optional
-    @SerializedName("order_id")
+    @JsonProperty("order_id")
     private String orderId;
     // optional
-    @SerializedName("order_description")
+    @JsonProperty("order_description")
     private String orderDescription;
 }

@@ -1,14 +1,14 @@
 package me.thejramon.nowpayments.model;
 
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 public class Response {
     private boolean status;
 
-    @SerializedName("statusCode")
+    @JsonProperty("statusCode")
     private int statusCode;
 
     private String code;

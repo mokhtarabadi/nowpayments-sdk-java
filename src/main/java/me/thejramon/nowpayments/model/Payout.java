@@ -1,23 +1,23 @@
 package me.thejramon.nowpayments.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class Payout{
+public class Payout {
 
 	private long id;
 
 	private double amount;
 
-	@SerializedName("extra_id")
+	@JsonProperty("extra_id")
 	private String extraId;
 
 	private String address;
 
-	@SerializedName("requested_at")
+	@JsonProperty("requested_at")
 	private Date requestedAt;
 
 	private String currency;
@@ -26,14 +26,14 @@ public class Payout{
 
 	private String hash;
 
-	@SerializedName("batchWithdrawalId")
+	@JsonProperty("batchWithdrawalId")
 	private String batchWithdrawalId;
 
 	private Status status;
 
-	@SerializedName("createdAt")
+	@JsonProperty("createdAt")
 	private Date createdAt;
 
-	@SerializedName("updatedAt")
+	@JsonProperty("updatedAt")
 	private Date updatedAt;
 }

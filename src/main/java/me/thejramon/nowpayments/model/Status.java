@@ -1,6 +1,6 @@
 package me.thejramon.nowpayments.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum Status {
     /**
@@ -15,31 +15,31 @@ public enum Status {
      * expired - the user didn't send the funds to the specified address in the 24 hour time window.
      */
 
-    @SerializedName("waiting")
+    @JsonProperty("waiting")
     WAITING("waiting"),
 
-    @SerializedName("confirming")
+    @JsonProperty("confirming")
     CONFIRMING("confirming"),
 
-    @SerializedName("confirmed")
+    @JsonProperty("confirmed")
     CONFIRMED("confirmed"),
 
-    @SerializedName("sending")
+    @JsonProperty("sending")
     SENDING("sending"),
 
-    @SerializedName("partially_paid")
+    @JsonProperty("partially_paid")
     PARTIALLY_PAID("partially_paid"),
 
-    @SerializedName("finished")
+    @JsonProperty("finished")
     FINISHED("finished"),
 
-    @SerializedName("failed")
+    @JsonProperty("failed")
     FAILED("failed"),
 
-    @SerializedName("refunded")
+    @JsonProperty("refunded")
     REFUNDED("refunded"),
 
-    @SerializedName("expired")
+    @JsonProperty("expired")
     EXPIRE("expired");
 
     private final String value;

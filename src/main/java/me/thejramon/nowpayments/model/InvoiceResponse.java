@@ -1,7 +1,6 @@
 package me.thejramon.nowpayments.model;
 
-
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.Date;
@@ -11,37 +10,37 @@ public class InvoiceResponse extends Response {
 
     private long id;
 
-    @SerializedName("order_id")
+    @JsonProperty("order_id")
     private String orderId;
 
-    @SerializedName("order_description")
+    @JsonProperty("order_description")
     private String orderDescription;
 
-    @SerializedName("price_amount")
+    @JsonProperty("price_amount")
     private double priceAmount;
 
-    @SerializedName("price_currency")
+    @JsonProperty("price_currency")
     private String priceCurrency;
 
-    @SerializedName("pay_currency")
+    @JsonProperty("pay_currency")
     private String payCurrency;
 
-    @SerializedName("ipn_callback_url")
+    @JsonProperty("ipn_callback_url")
     private String ipnCallbackUrl;
 
-    @SerializedName("invoice_url")
+    @JsonProperty("invoice_url")
     private String invoiceUrl;
 
-    @SerializedName("success_url")
+    @JsonProperty("success_url")
     private String successUrl;
 
-    @SerializedName("cancel_url")
+    @JsonProperty("cancel_url")
     private String cancelUrl;
 
-    @SerializedName("created_at")
+    @JsonProperty("created_at")
     private Date createdAt;
 
-    @SerializedName("updated_at")
+    @JsonProperty("updated_at")
     private Date updatedAt;
 
 }

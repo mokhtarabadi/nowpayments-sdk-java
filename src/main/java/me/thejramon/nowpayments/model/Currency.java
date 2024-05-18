@@ -1,6 +1,6 @@
 package me.thejramon.nowpayments.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
@@ -14,34 +14,34 @@ public class Currency {
 
     private boolean enable;
 
-    @SerializedName("wallet_regex")
+    @JsonProperty("wallet_regex")
     private String walletRegex;
 
     private int priority;
 
-    @SerializedName("extra_id_exists")
+    @JsonProperty("extra_id_exists")
     private boolean extraIdExists;
 
-    @SerializedName("extra_id_regex")
+    @JsonProperty("extra_id_regex")
     private String extraIdRegex;
 
-    @SerializedName("logo_url")
+    @JsonProperty("logo_url")
     private String logoUrl;
 
     private boolean track;
 
-    @SerializedName("cg_id")
+    @JsonProperty("cg_id")
     private String cgId;
 
-    @SerializedName("is_maxlimit")
+    @JsonProperty("is_maxlimit")
     private boolean isMaxLimit;
 
     private String network;
 
-    @SerializedName("smart_contract")
+    @JsonProperty("smart_contract")
     private String smartContract;
 
-    @SerializedName("network_precision")
+    @JsonProperty("network_precision")
     private String networkPrecision;
 
 }

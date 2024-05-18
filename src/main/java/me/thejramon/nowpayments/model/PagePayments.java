@@ -1,20 +1,17 @@
 package me.thejramon.nowpayments.model;
 
-
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 public class PagePayments extends Response {
     private int page;
-
     private int limit;
-
     private int total;
 
-    @SerializedName("pagesCount")
+    @JsonProperty("pagesCount")
     private int pagesCount;
 
-    @SerializedName("data")
+    @JsonProperty("data")
     private PaymentStatusResponse[] data;
 }

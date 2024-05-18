@@ -1,7 +1,6 @@
 package me.thejramon.nowpayments.model;
 
-
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -9,30 +8,33 @@ import lombok.NonNull;
 public class PaymentRequest {
 
     @NonNull
-    @SerializedName("price_amount")
+    @JsonProperty("price_amount")
     private Double priceAmount;
 
     @NonNull
-    @SerializedName("price_currency")
+    @JsonProperty("price_currency")
     private String priceCurrency;
 
-    @SerializedName("pay_amount")
+    @JsonProperty("pay_amount")
     private double payAmount;
 
     @NonNull
-    @SerializedName("pay_currency")
+    @JsonProperty("pay_currency")
     private String payCurrency;
+
     @NonNull
-    @SerializedName("ipn_callback_url")
+    @JsonProperty("ipn_callback_url")
     private String ipnCallbackUrl;
-    @SerializedName("order_id")
+
+    @JsonProperty("order_id")
     private String orderId;
-    @SerializedName("order_description")
+
+    @JsonProperty("order_description")
     private String orderDescription;
 
-    @SerializedName("is_fixed_rate")
+    @JsonProperty("is_fixed_rate")
     private boolean isFixedRate;
 
-    @SerializedName("is_fee_paid_by_user")
+    @JsonProperty("is_fee_paid_by_user")
     private boolean isFeePaidByUser;
 }

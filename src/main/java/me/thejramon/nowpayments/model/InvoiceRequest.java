@@ -1,46 +1,43 @@
 package me.thejramon.nowpayments.model;
 
-
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NonNull;
 
 @Data
 public class InvoiceRequest {
     @NonNull
-    @SerializedName(value = "price_amount")
+    @JsonProperty("price_amount")
     private Double priceAmount;
 
     @NonNull
-    @SerializedName(value = "price_currency")
+    @JsonProperty("price_currency")
     private String priceCurrency;
 
-    @SerializedName("pay_currency")
+    @JsonProperty("pay_currency")
     private String payCurrency;
 
-    @SerializedName("order_id")
+    @JsonProperty("order_id")
     private String orderId;
 
-    @SerializedName("order_description")
+    @JsonProperty("order_description")
     private String orderDescription;
 
-    @SerializedName("ipn_callback_url")
+    @JsonProperty("ipn_callback_url")
     private String ipnCallbackUrl;
 
-    @SerializedName("success_url")
+    @JsonProperty("success_url")
     private String successUrl;
 
-    @SerializedName("cancel_url")
+    @JsonProperty("cancel_url")
     private String cancelUrl;
 
-    @SerializedName("partially_paid_url")
+    @JsonProperty("partially_paid_url")
     private String partiallyPaidUrl;
 
-
-    @SerializedName("is_fixed_rate")
+    @JsonProperty("is_fixed_rate")
     private boolean isFixedRate;
-    @SerializedName("is_fee_paid_by_user")
+
+    @JsonProperty("is_fee_paid_by_user")
     private boolean isFeePaidByUser;
-
-
 }

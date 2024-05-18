@@ -1,19 +1,19 @@
 package me.thejramon.nowpayments.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum Case {
 
-    @SerializedName("success")
+    @JsonProperty("success")
     SUCCESS("success"),
 
-    @SerializedName("failed")
+    @JsonProperty("failed")
     FAILED("failed"),
 
-    @SerializedName("partially_paid")
+    @JsonProperty("partially_paid")
     PARTIALLY_PAID("partially_paid"),
 
-    @SerializedName("common")
+    @JsonProperty("common")
     COMMON("common");
 
     private final String value;
@@ -22,4 +22,3 @@ public enum Case {
         this.value = value;
     }
 }
-

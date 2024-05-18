@@ -1,7 +1,6 @@
 package me.thejramon.nowpayments.model;
 
-
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -12,25 +11,25 @@ public class PaymentResponseByInvoice {
     private Long iid;
 
     @NonNull
-    @SerializedName("pay_currency")
+    @JsonProperty("pay_currency")
     private String payCurrency;
 
-    @SerializedName("purchase_id")
+    @JsonProperty("purchase_id")
     private long purchaseId;
 
-    @SerializedName("order_description")
+    @JsonProperty("order_description")
     private String orderDescription;
 
-    @SerializedName("customer_email")
+    @JsonProperty("customer_email")
     private String customerEmail;
 
-    @SerializedName("payout_address")
+    @JsonProperty("payout_address")
     private String payoutAddress;
 
-    @SerializedName("payout_extra_id")
+    @JsonProperty("payout_extra_id")
     private String payoutExtraId;
 
-    @SerializedName("payout_currency")
+    @JsonProperty("payout_currency")
     private String payoutCurrency;
 
 }
